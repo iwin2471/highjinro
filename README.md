@@ -1,6 +1,8 @@
 # highjinro_backend
 KOREA UNIVERSITY hackaton
 
+## API request url hacka.iwin247.kr
+
 ## API Document
 
 * Common Response
@@ -186,7 +188,7 @@ KOREA UNIVERSITY hackaton
 
 > location_y
 
-> coeducati 공학여부
+> coeducation 공학여부
 
 
 ### schooltags
