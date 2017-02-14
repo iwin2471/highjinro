@@ -10,7 +10,7 @@ var vhost = require('vhost');
 var randomstring = require('randomstring');
 var app = express();
 var debug = require('debug')('dicon:server');
-var rnd_string = require("randomstring");
+var rndString = require("randomstring");
 var fs = require('fs');
 var router = express.Router();
 var async = require('async');
@@ -39,10 +39,10 @@ app.use(passport.session());
 
 
 //router setting
-var index = require('./routes/index')(router);
+var auth = require('./routes/auth')(router, db.Users, rndString, func);
 
 //router setting
-app.use('/', index);
+app.use('/auth', auth);
 
 
 //create server

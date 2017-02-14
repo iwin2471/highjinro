@@ -7,27 +7,33 @@ var UsersSchema = mongoose.Schema({
   passwd: {type: String},
   name: {type: String},
   token: {type: String},
-  setting: {type: String},
-  profile: {type: String},
-  profile_img: {type: String},
-  facebook_id: {type: String},
-  github_id: {type: String},
-  twitter_id: {type: String},
-  google_id: {type: String},
-  chats:[String]
+  interest_field: [String],
+  interest_school: {type: String}
 });
 
-var ChatsSchema = mongoose.Schema({
-   chat_peoples: [String], 
-   room_token: {type: String},
-   chats:[{
-     talker: {type: String},
-     talk: {type: String}
-   }]
+var SchoolsSchema = mongoose.Schema({
+  code: {type: String},
+  name: {type: String},
+  tag: {type: String},
+  pathways: {type: Number},
+  employment: {type: Number},
+  class: {type: String},
+  location_x: {type: Number},
+  location_y: {type: Number},
+  coeducation: {type: String}
+});
+
+
+var SchoolTagSchema = mongoose.Schema({
+  tag: {type: String},
+  schools: [String]
 });
 
 
 Users = mongoose.model("users", UsersSchema);
-chats = mongoose.model("chats", ChatsSchema);
+Schools = mongoose.model("schools", SchoolsSchema);
+SchoolTag = mongoose.model("schooltags", SchoolsSchema);
 exports.Users = Users;
+exports.Schools = Schools;
+exports.SchoolTag = SchoolTag;
 exports.db = db;
