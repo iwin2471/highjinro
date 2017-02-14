@@ -154,6 +154,122 @@ KOREA UNIVERSITY hackaton
     HTTP 404 : school not found
     
     
+* GET /board
+
+> Response
+
+    HTTP 200 : return board json
+
+
+* POST /board/write
+
+
+> Params
+
+        file: if user upload image use key file
+
+        token: writer token  [String]
+
+        date: date  [String]
+
+        title: title name [String]
+
+        contents: contents [String]
+
+> Response
+
+        HTTP 200 : return Success
+
+        HTTP 500 : send reason "already exists" or DB ERROR (it change 409 to 500)
+
+
+* POST /board/comment
+
+> Params
+
+  token: writer token  [String]
+
+  boardid: boardid [String]
+
+  comment: board comment [String]
+
+  date: write date [String]
+
+> Response
+
+    HTTP 200 : return Success
+
+    HTTP 401 : not vaild token
+
+    HTTP 500 : send reason "already exists" or DB ERROR
+    
+* GET /board/{boardid}
+
+> Response
+
+    HTTP 200 : return board detail
+
+    HTTP 400 : not vaild id
+    
+* PUT /board/like
+
+> Params
+
+  boardid: boardid [String]
+
+> Response
+
+    HTTP 200 : return board 
+
+    HTTP 400 : not vaild id
+    
+* PUT /board/dislike
+
+> Params
+
+  boardid: boardid [String]
+
+> Response
+
+    HTTP 200 : return board 
+
+    HTTP 400 : not vaild id
+
+* DELETE /board/destroy
+
+> Params
+
+  boardid: boardid [String]
+
+> Response
+
+    HTTP 200 : goodbye
+
+    HTTP 400 : not vaild id
+
+    HTTP 401 : param not found
+
+    HTPP 500 : DB ERR
+
+* PUT /board/edit (chane post to put)
+
+> Params
+
+  boardid: boardid [String]
+  
+  title: title [String]
+  
+  contents: contents [String}
+  
+> Response
+
+    HTTP 200 : changed
+
+    HTTP 401 : not vaild board id
+
+    HTTP 500 : DB ERR
+    
+    
 ## Database Schema
 
 ### User
