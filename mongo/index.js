@@ -38,14 +38,15 @@ var BoardsSchema = mongoose.Schema({
   boardid: {type: String},
   board_writer: {type: String},
   writer_img: {type: String},
-  date: {type: Date},
+  date: {type: String},
   contents: {type: String},
   like: {type: Number, min: 0, default: 0},
+  dis_like: {type: Number, min: 0, default: 0},
   img_url: {type: String},
 
   comments:[{
       writer: {type: String},
-      date: {type: Date},
+      date: {type: String},
       summary: {type: String},
       profile_image: {type: String},
   }]
