@@ -1,28 +1,87 @@
 module.exports = (router, Users, rndString,func) =>{
+  var multer = require('multer');
+  var Q = require('q');
+
+  var upload = (req, res, token) => {
+  var deferred = Q.defer();
+  var storage = multer.diskStorage({
+  // 서버에 저장할 폴더
+    destination: function (req, file, cb) {
+      cb(null, "upload");
+    },
+        // 서버에 저장할 파일 명
+    filename: function (req, file, cb) {
+      var token = req.body.token;
+
+      file.uploadedFile = {
+        name: token,
+        ext: file.mimetype.split('/')[1]
+      };
+
+      cb(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
+    }
+  });
+
+  var upload = multer({ storage: storage }).single('file');
+    upload(req, res, function (err) {
+    if (err) deferred.reject();
+    else if (req.file === undefined){
+       const id = req.body.id;
+         const passwd = req.body.passwd;
+         const name = req.body.name;
+         const field = req.body.interest_field;
+         const school = req.body.interest_school;
+  
+         const new_user = new Users({
+           id: id,
+           passwd: passwd,
+           name: name,
+           token: token,
+           profile_img: "unll",
+           interest_field: field,
+           interest_school: school,
+         });
+  
+        new_user.save((err, data)=>{
+          if(err) return res.status(400).send("save err");
+          return res.status(200).json(new_user);
+        });
+    }else deferred.resolve(req.file.uploadedFile);
+        
+    });
+    return deferred.promise;
+};
+
   router.post('/auth/signup', (req, res) => {
     var params = ['id', 'passwd', 'name', 'interest_field', 'interest_school'];
 
     if(func.check_param(req.body, params)){
-      const id = req.body.id;
-      const passwd = req.body.passwd;
-      const name = req.body.name;
-      const field = req.body.interest_field;
-      const school = req.body.interest_school;
-    
-      const new_user = new Users({
-        id: id,
-        passwd: passwd,
-        name: name,
-        token: rndString.generate(),
-        interest_field: field,
-        interest_school: school,
-      });
-    
-      new_user.save((err, data)=>{
-        if(err) return res.status(400).send("save err");
-        return res.status(200).json(new_user);
-      });
+       var token = rndString.generate();
+       func.profile_upload(req, res, token).then(function (file) {
+         const id = req.body.id;
+         const passwd = req.body.passwd;
+         const name = req.body.name;
+         const field = req.body.interest_field;
+         const school = req.body.interest_school;
+   
+         const new_user = new Users({
+           id: id,
+           passwd: passwd,
+           name: name,
+           token: token,
+           profile_img: "http://hacka.iwin247.kr/img/"+token,
+           interest_field: field,
+           interest_school: school,
+         });
+   
+        new_user.save((err, data)=>{
+          if(err) return res.status(400).send("save err");
+          return res.status(200).json(new_user);
+        });
 
+       }, function (err) {
+         if(err) return res.status(500).send(err);
+       });
     }else{
       return res.status(400).send("param missing or null");
     } 
