@@ -7,7 +7,8 @@ var UsersSchema = mongoose.Schema({
   passwd: {type: String},
   name: {type: String},
   token: {type: String},
-  school_name: {type: String}
+  interest_field: [String],
+  interest_school: {type: String}
 });
 
 var SchoolsSchema = mongoose.Schema({
