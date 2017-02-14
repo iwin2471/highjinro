@@ -10,7 +10,7 @@ var UsersSchema = mongoose.Schema({
   token: {type: String},
   profile_img:{type: String},
   interest_field: [String],
-  interest_school: {type: String}
+  interest_school: {type: String},
   gender: {type: String}
 });
 

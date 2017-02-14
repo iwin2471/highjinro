@@ -14,6 +14,8 @@ var rndString = require("randomstring");
 var fs = require('fs');
 var router = express.Router();
 var async = require('async');
+var multer = require('multer');
+var Q = require('q');
 
 //module setting
 var db = require('./mongo');
@@ -39,17 +41,20 @@ app.use(passport.session());
 
 
 //router setting
-var auth = require('./routes/auth')(router, db.Users, rndString, func, passport);
+var auth = require('./routes/auth')(router, db.Users, rndString, func, passport, Q, multer);
 var user  = require('./routes/user')(router, db.Users,passport, func);
 var schools  = require('./routes/schools')(router, db.Users, func, db.Schools, db.SchoolTag);
+var img = require('./routes/img')(router);
 
 //router setting
 app.use('/auth', auth);
 app.use('/user', user);
 app.use('/schools', schools);
+app.use('/img', schools);
 
 
 //create server
+app.listen(port);
 app.on('error', onError);
 app.on('listening', onListening);
 //error handle

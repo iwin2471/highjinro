@@ -188,7 +188,7 @@ KOREA UNIVERSITY hackaton
 
 > location_y
 
-> coeducati 공학여부
+> coeducation 공학여부
 
 
 ### schooltags
