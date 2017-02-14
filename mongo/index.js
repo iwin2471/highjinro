@@ -34,10 +34,31 @@ var SchoolTagSchema = mongoose.Schema({
 });
 
 
+var BoardsSchema = mongoose.Schema({
+  boardid: {type: String},
+  board_writer: {type: String},
+  writer_img: {type: String},
+  date: {type: Date},
+  contents: {type: String},
+  like: {type: Number, min: 0, default: 0},
+  img_url: {type: String},
+
+  comments:[{
+      writer: {type: String},
+      date: {type: Date},
+      summary: {type: String},
+      profile_image: {type: String},
+  }]
+});
+
+
 Users = mongoose.model("users", UsersSchema);
 Schools = mongoose.model("schools", SchoolsSchema);
-SchoolTag = mongoose.model("schooltags", SchoolsSchema);
+SchoolTag = mongoose.model("schooltags", SchoolTagSchema);
+Boards = mongoose.model("boards", BoardsSchema);
+
 exports.Users = Users;
 exports.Schools = Schools;
 exports.SchoolTag = SchoolTag;
+exports.Boards = Boards
 exports.db = db;
