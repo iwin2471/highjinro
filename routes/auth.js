@@ -1,4 +1,4 @@
-module.exports = (router, Users, rndString,func) =>{
+module.exports = (router, Users, rndString,func, passport) =>{
   var multer = require('multer');
   var Q = require('q');
 
@@ -31,6 +31,7 @@ module.exports = (router, Users, rndString,func) =>{
          const name = req.body.name;
          const field = req.body.interest_field;
          const school = req.body.interest_school;
+         const gender = req.body.gender;
   
          const new_user = new Users({
            id: id,
@@ -40,6 +41,7 @@ module.exports = (router, Users, rndString,func) =>{
            profile_img: "unll",
            interest_field: field,
            interest_school: school,
+           gender: gender
          });
   
         new_user.save((err, data)=>{
@@ -63,7 +65,8 @@ module.exports = (router, Users, rndString,func) =>{
          const name = req.body.name;
          const field = req.body.interest_field;
          const school = req.body.interest_school;
-   
+         const gender = req.body.gender        
+
          const new_user = new Users({
            id: id,
            passwd: passwd,

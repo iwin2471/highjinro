@@ -39,11 +39,14 @@ app.use(passport.session());
 
 
 //router setting
-var auth = require('./routes/auth')(router, db.Users, rndString, func);
+var auth = require('./routes/auth')(router, db.Users, rndString, func, passport);
 var user  = require('./routes/user')(router, db.Users,passport, func);
+var schools  = require('./routes/schools')(router, db.Users, func, db.Schools, db.SchoolTag);
 
 //router setting
 app.use('/auth', auth);
+app.use('/user', user);
+app.use('/schools', schools);
 
 
 //create server

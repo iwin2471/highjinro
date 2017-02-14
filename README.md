@@ -30,6 +30,8 @@ KOREA UNIVERSITY hackaton
     
     file : image file
     
+    gender : user gender
+    
 
 > Response
 
@@ -100,7 +102,7 @@ KOREA UNIVERSITY hackaton
     
     HTTP 500 : DB err
     
-* GET /user/{token}/fb/token : facebook Login
+* GET /user/{token}/fb/token : facebook Peristalsis to user
 
 > Params
 
@@ -115,6 +117,40 @@ KOREA UNIVERSITY hackaton
     HTTP 404 : User not found
     
     HTTP 500 : DB err
+    
+ * GET /schools : school
+
+> Response
+
+    HTTP 200 : send schools
+
+    HTTP 404 : school not found
+    
+       
+* GET /schools/:name : school find
+
+> Params
+
+    name : school name [String]
+    
+> Response
+
+    HTTP 200 : send school
+
+    HTTP 404 : school not found
+    
+* GET /schools/tag : tag
+
+> Params
+
+    name : school name [String]
+    
+> Response
+
+    HTTP 200 : send school
+
+    HTTP 404 : school not found
+    
     
 ## Database Schema
 

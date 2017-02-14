@@ -1,5 +1,5 @@
 module.exports = (router, Users, passport) => {
-  .get('/user/:token', (req, res) => {
+  router.get('/user/:token', (req, res) => {
     const id = req.params.token;
     Users.findOne({token: token}, (err, user) => {
       if(err) res.status(400).send("db err");
