@@ -22,12 +22,15 @@ KOREA UNIVERSITY hackaton
 
     passwd : User's   Password [String]
     
-    name : User name [String]
+    name : User name
     
-    interest_field : 관심분야 [String Array]
+    interest_field : User school interest
     
-    interest_school : 관심학교 [String]
+    interest_school : User interest_school
     
+    file : image file
+    
+
 > Response
 
     HTTP 200 : send User
@@ -52,6 +55,22 @@ KOREA UNIVERSITY hackaton
     
     HTTP 500 : DB err
     
+* GET /auth/fb/token : facebook auth
+
+> Params
+
+    access_token : user facebook access_token [String]
+    
+> Response
+
+    HTTP 200 : send User
+
+    HTTP 400 : Param missing
+    
+    HTTP 412 : incorrect id or password
+    
+    HTTP 500 : DB err
+    
 * GET /auth/auto/{token} : Auto Login
 
 > Params
@@ -66,11 +85,44 @@ KOREA UNIVERSITY hackaton
     
     HTTP 500 : DB err
     
+    
+* GET /user/{token} : Auto Login
+
+> Params
+
+    token : token [String]
+
+> Response
+
+    HTTP 200 : send user
+
+    HTTP 404 : User not found
+    
+    HTTP 500 : DB err
+    
+* GET /user/{token}/fb/token : facebook Login
+
+> Params
+
+    token : user token [String]
+    
+    access_token : user facebook token [String]
+
+> Response
+
+    HTTP 200 : send user
+
+    HTTP 404 : User not found
+    
+    HTTP 500 : DB err
+    
 ## Database Schema
 
 ### User
 
 > id : User's id [String required unique]
+
+> facebook_id : user facebook id [String]
 
 > pw : User's Password [String required]
 
@@ -78,7 +130,7 @@ KOREA UNIVERSITY hackaton
 
 > interest_field : User interest field
 
-> interest_school : User interest school
+> interest_school : user interest school
 
 ### School
 
@@ -98,6 +150,11 @@ KOREA UNIVERSITY hackaton
 
 > location_y
 
-> coeducation 공학여부
+> coeducati 공학여부
 
-> img_url: school imgage url
+
+### schooltags
+
+> tag : 학교태그 [String]
+
+> schools : schools [String array]
