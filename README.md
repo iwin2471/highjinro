@@ -116,6 +116,28 @@ KOREA UNIVERSITY hackaton
     
     HTTP 500 : DB err
     
+ * GET /schools : school
+
+> Response
+
+    HTTP 200 : send schools
+
+    HTTP 404 : school not found
+    
+       
+* GET /schools/:name : facebook Login
+
+> Params
+
+    name : school name [String]
+    
+> Response
+
+    HTTP 200 : send school
+
+    HTTP 404 : school not found
+    
+    
 ## Database Schema
 
 ### User
