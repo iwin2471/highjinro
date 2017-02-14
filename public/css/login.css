@@ -1,0 +1,130 @@
+*{
+  margin:0;
+  overflow:hidden;
+  font-family: 'Exo', sans-serif;
+}
+
+body{
+  width:100vw;
+  height:100vh;
+  background-image:url('img/back.jpg');
+}
+
+.mask{
+  width:100vw;
+  height:100vh;
+  background-color:rgba(255,255,255,0.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login{
+  width:40vw;
+  height:50vh;
+
+  display:flex;
+}
+
+.context{
+  width:20vw;
+  height:50vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+
+  font-size:2.6vw;
+}
+
+.text{
+  color:#94CCBD;  /* 0 128 255*/
+  margin-left:1vw;
+}
+
+.loginBox{
+  width:20vw;
+  height:50vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+
+.inputBox{
+  width:18vw;
+  height:38vh;
+}
+
+::-webkit-input-placeholder {
+    color:#fff;
+}
+
+.input{
+  color:white;
+  width:18vw;
+  height:6vh;
+  margin-bottom:2vh;
+  background-color:rgba(255,255,255,0);
+  border:0.2vw solid white;
+  outline:none;
+  cursor:pointer;
+  padding-left:1vw;
+
+  font-size:1.5vw;
+}
+
+.loginBtn{
+  width:8.5vw;
+  height:6vh;
+  background-color:white;
+  border:none;
+  outline:none;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#a18d6c;
+  font-size:2vw;
+}
+
+.aBox{
+  width:18vw;
+  height:6vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.signup{
+  text-decoration:none;
+  color:white;
+  padding-top:2vh;
+}
+
+.guestBtn{
+  width:8.5vw;
+  height:6vh;
+  background-color:white;
+  border:none;
+  outline:none;
+
+  cursor:pointer;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#a18d6c;
+  font-size:2vw;
+}
+
+.btnBox{
+  width:18vw;
+  height:6vh;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}

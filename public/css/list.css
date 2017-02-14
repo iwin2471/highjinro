@@ -1,0 +1,97 @@
+  *{
+    margin:0;
+    overflow:hidden;
+    font-family: 'Exo', sans-serif;
+  }
+
+  body{
+    width:100vw;
+    height:100vh;
+  }
+  .null{
+    width:100vw;
+    height:10vh;
+  }
+
+  .header{
+    position:fixed;
+    width:100vw;
+    height:10vh;
+    background-image:url('img/header.png');
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+
+    padding-left:1vw;
+
+    font-size:2vw;
+    color:white;
+    font-family: 'Exo', sans-serif;
+  }
+
+  .text{
+    /*color:rgb(0,128,255);*/
+    color:#94CCBD;
+    margin-left:1vw;
+  }
+
+  .list{
+    padding-top:5vh;
+    width:100vw;
+    height:90vh;
+    overflow-y:auto;
+  }
+
+  .listContent{
+    margin:auto;
+    width:80vw;
+    height:13vh;
+    border:0.2vw solid rgba(0,0,0,0.2);
+
+    display:flex;
+    align-items:center;
+    justify-content: flex-start;
+
+    margin-bottom:0.5vh;
+    padding-left:2vw;
+  }
+
+  .fontHover{
+    color:white;
+  }
+
+  .year{
+    font-size:5vh;
+    color:rgba(0,0,0,0.3);
+  }
+
+  .nameList{
+    width:80vw;
+    height:130vh;
+    margin:auto;
+    display:none;
+    margin-bottom:2vh;
+  }
+
+  .name{
+    width:80vw;
+    height:120vh;
+    display:none;
+    margin:auto;
+    padding:0;
+
+  }
+
+  h3{
+    width:77vw;
+    height:8vh;
+    border:0.2vw solid rgba(0,0,0,0.2);
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    margin-bottom:0.5vh;
+    padding-left:2vw;
+    cursor:pointer;
+    color:rgba(0,0,0,0.4);
+
+  }

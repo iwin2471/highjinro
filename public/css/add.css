@@ -1,0 +1,102 @@
+*{
+  margin:0;
+  overflow:hidden;
+  font-family: 'Exo', sans-serif;
+}
+
+body{
+  width:100vw;
+  height:100vh;
+}
+.null{
+  width:100vw;
+  height:10vh;
+}
+
+.header{
+  position:fixed;
+  width:100vw;
+  height:10vh;
+  background-image:url('img/header.png');
+  display:flex;
+  justify-content:flex-start;
+  align-items:center;
+
+  padding-left:1vw;
+
+  font-size:2vw;
+  color:white;
+  font-family: 'Exo', sans-serif;
+}
+
+.text{
+  /*color:rgb(0,128,255);*/
+  color:#94CCBD;
+  margin-left:1vw;
+}
+
+.add{
+  width:80vw;
+  height:90vh;
+  margin:auto;
+}
+
+.addImg{
+  width:77vw;
+  height:5vh;
+  border:0.2vw solid rgba(0,0,0,0.2);
+  margin-top:1vh;
+  margin-bottom:2vh;
+  display:flex;
+  align-items:center;
+  padding-left:2vw;
+}
+
+.file{
+  width:74vw;
+  outline:none;
+}
+
+.addText{
+  width:79vw;
+  height:79vh;
+  border:0.2vw solid rgba(0,0,0,0.2);
+
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+}
+
+.context{
+  width:39vw;
+  height:77vh;
+  border:0.2vw solid rgba(0,0,0,0.2);
+}
+
+.realtime{
+  width:39vw;
+  height:77vh;
+  border:0.2vw solid rgba(0,0,0,0.2);
+  overflow: auto;
+}
+
+textarea{
+  width:39vw;
+  height:77vh;
+  outline:none;
+  border:none;
+}
+
+#pad{
+    font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+
+    border: none;
+    overflow: auto;
+    outline: none;
+    resize: none;
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
