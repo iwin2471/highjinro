@@ -112,6 +112,26 @@ module.exports = (router, Users, rndString,func) =>{
        return res.status(400).send("param missing or null");
      }
   })
+
+   .get('/fb/token', passport.authenticate('facebook-token'), function(req, res) {
+    if (req.user) {
+      Users.findOne({facebook_id: req.user._json.id}, {_id: 0}, function(err, users) {
+        if(err) err;
+        if(users) res.status(200).send(users);
+        else{
+          facebook_user = new Users({
+            facebook_id: req.user._json.id,
+            name: req.user._json.name,
+            token: rndString.generate(),
+          });
+          facebook_user.save((err, result)=>{
+            if(err) return res.stauts(500).send("DB err");
+            if(result) return res.status(200).json(facebook_user);
+          });
+        }
+      });
+    } else  res.status(401).send("unauthed");
+  })
   
   return router;
 }
