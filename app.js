@@ -46,7 +46,7 @@ var auth = require('./routes/auth')(router, db.Users, rndString, func, passport,
 var user  = require('./routes/user')(router, db.Users,passport, func);
 var schools  = require('./routes/schools')(router, db.Users, func, db.Schools, db.SchoolTag);
 var img = require('./routes/img')(router);
-var boards = require('./routes/board')(router);
+var boards = require('./routes/board')(router, Q, multer, db.Boards, rndString);
 
 //router setting
 app.use('/', index);
