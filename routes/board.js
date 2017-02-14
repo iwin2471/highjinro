@@ -21,7 +21,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   upload(req, res, (err) => {
     if(err) deferred.reject();
     else if(req.file === undefined){
-      check_param(req.body, params, res);
       var title = req.body.title;
       var token = req.body.token;
       var contents = req.body.contents;
@@ -37,6 +36,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
           writerToken: token,
           writer_profile: result.profile_img,
           date: date,
+          img_url: "null",
           contents: contents,
         });
 
@@ -54,7 +54,13 @@ module.exports = (router, Q, multer, Boards, rndString) => {
 };
 
   
-   router.post('/write', function(req, res, next) {
+   router.get('/boards', (req, res) =>{
+     Boards.find({}, function(err, result) {
+       if (err) return res.status(409).send("DB error")
+       return res.status(200).send(result);
+     });
+  })
+  .post('/write', function(req, res, next) {
     var boardid = rndString.generate();
     var date = moment().tz("Asia/Seoul").format("YYYY-MM-DD hh:mm");
 
@@ -64,7 +70,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
       var contents = req.body.contents.replace(/\"/gi, "");
 
       var image = "upload/"+file.name+"."+file.ext;
-      var url = file.name+"."+file.ext;
 
       Users.findOne({token: token}, function(err, result) {
           if (err) return res.status(500).send("DB error");
@@ -77,7 +82,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
             writer_profile: result.profile_image,
             date: date,
             contents: contents,
-            imageurl: "http://iwin247.net/image/"+url
+            img_url: "http://hacka.iwin247.kr/image/"+boardid
           });
 
           current.save(function(err, data) {
@@ -90,23 +95,16 @@ module.exports = (router, Q, multer, Boards, rndString) => {
     });
   })
 
-  .get('/board', (req, res) =>{
-     Boards.find({}, function(err, result) {
-       if (err) return res.status(409).send("DB error")
-       return res.status(200).send(result);
-     });
-  })
-
   .post('/comment', function(req, res){
     var token = req.body.token;
     var boardid = req.body.boardid;
     var summary = req.body.summary;
-    var date = req.body.date;
+    var date = moment().tz("Asia/Seoul").format("YYYY-MM-DD hh:mm");
 
     Users.findOne({token: token}, function(err, user) {
       if (err) return res.status(500).send("DB error");
       else if(!user) return res.status(401).send("not valid token");
-        Boards.update({boardid: boardid}, {$push : {comments : {writer: user.name, date: date, summary: summary, profile_image: user.profile_image}}}, function(err, result){
+        Boards.update({boardid: boardid}, {$push : {comments : {writer: user.name, date: date, summary: summary, profile_image: user.profile_img}}}, function(err, result){
           if(err) return res.status(500).send("DB Error");
           if(result.ok){
             Boards.findOne({boardid: boardid}, function(err, board){
@@ -118,21 +116,16 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   })
 
   .put('/like', function(req, res) {
-    var params = ['token', 'boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
-
     var boardid = req.body.boardid;
-    var token = req.body.token;
 
     Boards.findOne({boardid: boardid}, function(err, result) {
       if(err) return res.status(409).send("db eror");
 
-      if(result !== null){
-        var good = result.good;
+      if(result){
+        var like = result.like;
+        console.log(like);
 
-        Boards.update({boardid: boardid}, {$set : {good: ++good}}, function(err, result){
+        Boards.update({boardid: boardid}, {$set : {like: ++like}}, function(err, result){
           if(err) return res.status(409).send("DB error");
           Boards.findOne({boardid: boardid}, function(err, board){
             if(err) return res.status(409).send("DB error");
@@ -144,17 +137,13 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   })
 
   .put('/dislike', function(req, res) {
-    var params = ['token', 'boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
 
     var boardid = req.body.boardid;
 
     Boards.findOne({boardid: boardid}, function(err, result) {
       if(result){
-        var bad = result.bad;
-        Boards.update({boardid: boardid}, {$set : {bad: ++bad}}, function(err, result){
+        var dis_like  = result.dis_like;
+        Boards.update({boardid: boardid}, {$set : {dis_like: ++dis_like}}, function(err, result){
           Boards.findOne({boardid: boardid}, function(err, board) {
             if(err) res.status(409).send("DB error");
             res.status(200).send(board);
@@ -164,12 +153,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
    });
   })
 
-  .get('/board/:boardid', function(req, res){
-    console.log(req.params);
-    var params = ['boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
+  .get('/boards/:boardid', function(req, res){
     var boardid = req.params.boardid;
 
     Boards.findOne({boardid: boardid}, {_id:0, writerToken:0}, function(err, board){
@@ -184,7 +168,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
 
     Boards.remove({boardid: boardid}, function(err, board){
       if(err)  return res.status(500).sned("DB ERROR");
-      if(board)  return res.status(200).send("good removed");
+      if(board)  return res.status(200).send("like removed");
       else  return res.status(404).send("board not found")
     });
   })
@@ -197,7 +181,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   
     Boards.update({boardid: boardid}, {$set: {title: title, contents: contents, date: date}}, (err, board)=>{
       if(err) return res.status(500).sned("DB ERROR");
-      if(result)  return res.status(200).send("changed");
+      if(board)  return res.status(200).send("changed");
       else  return res.status(401).send("not found")
     });
   });
