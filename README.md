@@ -22,10 +22,12 @@ KOREA UNIVERSITY hackaton
 
     passwd : User's   Password [String]
     
-    name : User name
+    name : User name [String]
     
-    school_name : User school_namek
-
+    interest_field : 관심분야 [String Array]
+    
+    interest_school : 관심학교 [String]
+    
 > Response
 
     HTTP 200 : send User
