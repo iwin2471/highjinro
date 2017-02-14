@@ -149,6 +149,18 @@ KOREA UNIVERSITY hackaton
 
     HTTP 404 : school not found
     
+* GET /schools/tag/{interest} : tag
+
+> Params
+
+  interest : 디자인,항공 이런식으로 관심분야 
+ 
+> Response
+
+    HTTP 200 : send schools
+    
+    HTTP 404 : school not found
+    
     
 * GET /board
 
