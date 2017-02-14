@@ -21,7 +21,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   upload(req, res, (err) => {
     if(err) deferred.reject();
     else if(req.file === undefined){
-      check_param(req.body, params, res);
       var title = req.body.title;
       var token = req.body.token;
       var contents = req.body.contents;
@@ -37,6 +36,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
           writerToken: token,
           writer_profile: result.profile_img,
           date: date,
+          img_url: "null",
           contents: contents,
         });
 
@@ -54,7 +54,13 @@ module.exports = (router, Q, multer, Boards, rndString) => {
 };
 
   
-   router.post('/write', function(req, res, next) {
+   router.get('/boards', (req, res) =>{
+     Boards.find({}, function(err, result) {
+       if (err) return res.status(409).send("DB error")
+       return res.status(200).send(result);
+     });
+  })
+  .post('/write', function(req, res, next) {
     var boardid = rndString.generate();
     var date = moment().tz("Asia/Seoul").format("YYYY-MM-DD hh:mm");
 
@@ -64,7 +70,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
       var contents = req.body.contents.replace(/\"/gi, "");
 
       var image = "upload/"+file.name+"."+file.ext;
-      var url = file.name+"."+file.ext;
 
       Users.findOne({token: token}, function(err, result) {
           if (err) return res.status(500).send("DB error");
@@ -77,7 +82,7 @@ module.exports = (router, Q, multer, Boards, rndString) => {
             writer_profile: result.profile_image,
             date: date,
             contents: contents,
-            imageurl: "http://iwin247.net/image/"+url
+            img_url: "http://hacka.iwin247.kr/image/"+boardid
           });
 
           current.save(function(err, data) {
@@ -88,13 +93,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
     }, function (err) {
       if(err) return res.status(409).send(err);
     });
-  })
-
-  .get('/board', (req, res) =>{
-     Boards.find({}, function(err, result) {
-       if (err) return res.status(409).send("DB error")
-       return res.status(200).send(result);
-     });
   })
 
   .post('/comment', function(req, res){
@@ -118,10 +116,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   })
 
   .put('/like', function(req, res) {
-    var params = ['token', 'boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
 
     var boardid = req.body.boardid;
     var token = req.body.token;
@@ -144,10 +138,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
   })
 
   .put('/dislike', function(req, res) {
-    var params = ['token', 'boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
 
     var boardid = req.body.boardid;
 
@@ -166,10 +156,6 @@ module.exports = (router, Q, multer, Boards, rndString) => {
 
   .get('/board/:boardid', function(req, res){
     console.log(req.params);
-    var params = ['boardid'];
-    if(!func.check_param(req.bdoy, params, token)){
-      res.status(400).send("param missing");
-    }
     var boardid = req.params.boardid;
 
     Boards.findOne({boardid: boardid}, {_id:0, writerToken:0}, function(err, board){

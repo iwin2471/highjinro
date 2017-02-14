@@ -13,9 +13,11 @@ module.exports = (router, Users, func, Schools, Schooltags) =>{
 
   .get('/schools/tag/:interest', (req, res)=>{
     var interest = req.params.interest.split(",");
-    console.log(interest);
     Schooltags.find({$or:[{tag:interest[0]},{tag:interest[1]}]}, {_id: 0},(err, schools)=>{
-      res.send(schools);
+      if(err) return res.status(500).send("DB err");
+      if(schools){
+        res.send(schools);
+      }else return res.status(404).send("not found");
     });
   })
   
