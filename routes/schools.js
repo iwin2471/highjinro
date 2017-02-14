@@ -10,8 +10,8 @@ module.exports = (router, Users, func, Schools, Schooltags) =>{
   .get('/:name', (req, res)=>{
      Schools.find({name: {$regex : req.params.name}}, {_id: 0},(err, schools)=>{
       if(err) return res.status(500).send("DB err");
-      if(schools) return res.status(200).send(schools);
-      else return res.status(404).send("school not found");
+      if(schools.length != 0) return res.status(200).send(schools);
+      else return res.status(400).send("school not found");
     });
   })
   
