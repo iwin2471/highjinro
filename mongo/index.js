@@ -11,6 +11,7 @@ var UsersSchema = mongoose.Schema({
   profile_img:{type: String},
   interest_field: [String],
   interest_school: {type: String}
+  gender: {type: String}
 });
 
 var SchoolsSchema = mongoose.Schema({
