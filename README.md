@@ -78,6 +78,8 @@ KOREA UNIVERSITY hackaton
 
 > interest_field : User interest field
 
+> interest_school : User interest school
+
 ### School
 
 > code : school_code [String]
@@ -96,4 +98,6 @@ KOREA UNIVERSITY hackaton
 
 > location_y
 
-> coeducati 공학여부
+> coeducation 공학여부
+
+> img_url: school imgage url
