@@ -1,17 +1,21 @@
 module.exports = (router, Users, rndString,func) =>{
   router.post('/auth/signup', (req, res) => {
-    var params = ['id', 'passwd', 'name', 'school_name'];
+    var params = ['id', 'passwd', 'name', 'interest_field', 'interest_school'];
 
     if(func.check_param(req.body, params)){
       const id = req.body.id;
       const passwd = req.body.passwd;
       const name = req.body.name;
+      const field = req.body.interest_field;
+      const school = req.body.interest_school;
     
       const new_user = new Users({
         id: id,
         passwd: passwd,
         name: name,
-        token: rndString.generate()
+        token: rndString.generate(),
+        interest_field: field,
+        interest_school: school,
       });
     
       new_user.save((err, data)=>{
@@ -27,7 +31,7 @@ module.exports = (router, Users, rndString,func) =>{
   .post('/auth/signin', (req,res)=>{
     var params = ['id', 'passwd'];
     if(func.check_param(req.body, params)){
-      Users.findOne({id: req.body.id, passwd: req.body.passwd}, (err, user)=>{
+      Users.findOne({id: req.body.id, passwd: req.body.passwd}, {_id: 0, _v: 0}, (err, user)=>{
         if(err) return res.status(500).send("DB err");
         if(user) return res.status(200).json(user);
         else return res.status(412).send("incorrect id or passwd");

@@ -7,6 +7,7 @@ var UsersSchema = mongoose.Schema({
   passwd: {type: String},
   name: {type: String},
   token: {type: String},
+  profile_img:{type: String},
   interest_field: [String],
   interest_school: {type: String}
 });
@@ -21,6 +22,7 @@ var SchoolsSchema = mongoose.Schema({
   location_x: {type: Number},
   location_y: {type: Number},
   coeducation: {type: String}
+  img_url: {type: String}
 });
 
 
