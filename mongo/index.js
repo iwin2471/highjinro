@@ -4,6 +4,7 @@ mongoose.Promise = global.Promise;
 
 var UsersSchema = mongoose.Schema({
   id: {type: String},
+  facebook_id: {type: String},
   passwd: {type: String},
   name: {type: String},
   token: {type: String},
