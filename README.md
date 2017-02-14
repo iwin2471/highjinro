@@ -1,6 +1,8 @@
 # highjinro_backend
 KOREA UNIVERSITY hackaton
 
+## API request url hacka.iwin247.kr
+
 ## API Document
 
 * Common Response
