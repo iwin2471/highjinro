@@ -40,6 +40,7 @@ app.use(passport.session());
 
 //router setting
 var auth = require('./routes/auth')(router, db.Users, rndString, func);
+var user  = require('./routes/user')(router, db.Users,passport, func);
 
 //router setting
 app.use('/auth', auth);
