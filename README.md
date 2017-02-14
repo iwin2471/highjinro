@@ -124,7 +124,7 @@ KOREA UNIVERSITY hackaton
 
 > Response
 
-    HTTP 200 : send schools
+    HTTP 200 : send all school
 
     HTTP 404 : school not found
     
@@ -133,7 +133,7 @@ KOREA UNIVERSITY hackaton
 
 > Params
 
-    name : school name [String]
+    name : find school name [String]
     
 > Response
 
@@ -142,14 +142,10 @@ KOREA UNIVERSITY hackaton
     HTTP 404 : school not found
     
 * GET /schools/tag : tag
-
-> Params
-
-    name : school name [String]
     
 > Response
 
-    HTTP 200 : send school
+    HTTP 200 : send tag
 
     HTTP 404 : school not found
     
