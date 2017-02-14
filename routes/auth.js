@@ -1,22 +1,18 @@
-module.exports = (router, Users, rndString,func, passport) =>{
-  var multer = require('multer');
-  var Q = require('q');
-
+module.exports = (router, Users, rndString,func, passport, Q, multer) =>{
   var upload = (req, res, token) => {
-  var deferred = Q.defer();
-  var storage = multer.diskStorage({
-  // 서버에 저장할 폴더
-    destination: function (req, file, cb) {
-      cb(null, "upload");
-    },
+    var deferred = Q.defer();
+    var storage = multer.diskStorage({
+    // 서버에 저장할 폴더
+      destination: function (req, file, cb) {
+        cb(null, "upload/");
+      },
         // 서버에 저장할 파일 명
-    filename: function (req, file, cb) {
-      var token = req.body.token;
-
-      file.uploadedFile = {
-        name: token,
-        ext: file.mimetype.split('/')[1]
-      };
+      filename: function (req, file, cb) {
+        file.uploadedFile = {
+          name: token,
+          ext: 'jpeg'
+        };
+       console.log(file.mimetype.split('/')[1]);
 
       cb(null, file.uploadedFile.name + '.' + file.uploadedFile.ext);
     }
@@ -38,7 +34,7 @@ module.exports = (router, Users, rndString,func, passport) =>{
            passwd: passwd,
            name: name,
            token: token,
-           profile_img: "unll",
+           profile_img: "null",
            interest_field: field,
            interest_school: school,
            gender: gender
@@ -54,12 +50,10 @@ module.exports = (router, Users, rndString,func, passport) =>{
     return deferred.promise;
 };
 
-  router.post('/auth/signup', (req, res) => {
-    var params = ['id', 'passwd', 'name', 'interest_field', 'interest_school'];
-
-    if(func.check_param(req.body, params)){
+  router.post('/signup', (req, res) => {
        var token = rndString.generate();
-       func.profile_upload(req, res, token).then(function (file) {
+       
+       upload(req, res, token).then(function (file) {
          const id = req.body.id;
          const passwd = req.body.passwd;
          const name = req.body.name;
@@ -85,12 +79,9 @@ module.exports = (router, Users, rndString,func, passport) =>{
        }, function (err) {
          if(err) return res.status(500).send(err);
        });
-    }else{
-      return res.status(400).send("param missing or null");
-    } 
   })
   
-  .post('/auth/signin', (req,res)=>{
+  .post('/signin', (req,res)=>{
     var params = ['id', 'passwd'];
     if(func.check_param(req.body, params)){
       Users.findOne({id: req.body.id, passwd: req.body.passwd}, {_id: 0, _v: 0}, (err, user)=>{
@@ -101,7 +92,7 @@ module.exports = (router, Users, rndString,func, passport) =>{
     }else return res.status(400).send("param missing or null");
   })
 
-  .get('/auth/auto/:token', (req, res)=>{
+  .get('/auto/:token', (req, res)=>{
      var params = ['token'];
 
      if(func.check_param(req.params, params)){
