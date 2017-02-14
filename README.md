@@ -24,7 +24,12 @@ KOREA UNIVERSITY hackaton
     
     name : User name
     
-    school_name : User school_namek
+    interest_field : User school interest
+    
+    interest_school : User interest_school
+    
+    file : image file
+    
 
 > Response
 
@@ -64,6 +69,21 @@ KOREA UNIVERSITY hackaton
     
     HTTP 500 : DB err
     
+    
+* GET /user/{token} : Auto Login
+
+> Params
+
+    token : token [String]
+
+> Response
+
+    HTTP 200 : send user
+
+    HTTP 404 : User not found
+    
+    HTTP 500 : DB err
+    
 ## Database Schema
 
 ### User
@@ -95,3 +115,10 @@ KOREA UNIVERSITY hackaton
 > location_y
 
 > coeducati 공학여부
+
+
+### schooltags
+
+> tag : 학교태그 [String]
+
+> schools : schools [String array]
