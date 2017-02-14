@@ -23,8 +23,16 @@ var SchoolsSchema = mongoose.Schema({
 });
 
 
+var SchoolTagSchema = mongoose.Schema({
+  tag: {type: String},
+  schools: [String]
+});
+
+
 Users = mongoose.model("users", UsersSchema);
 Schools = mongoose.model("schools", SchoolsSchema);
+SchoolTag = mongoose.model("schooltags", SchoolsSchema);
 exports.Users = Users;
-exports.Schools =Schools;
+exports.Schools = Schools;
+exports.SchoolTag = SchoolTag;
 exports.db = db;
