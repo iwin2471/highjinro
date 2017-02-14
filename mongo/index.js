@@ -13,12 +13,12 @@ var UsersSchema = mongoose.Schema({
 var SchoolsSchema = mongoose.Schema({
   code: {type: String},
   name: {type: String},
-  tag: {type: Stirng},
-  pathways: {type: Double},
-  employment: {type: Double},
+  tag: {type: String},
+  pathways: {type: Number},
+  employment: {type: Number},
   class: {type: String},
-  location_x: {type: Double},
-  location_y: {type: Double},
+  location_x: {type: Number},
+  location_y: {type: Number},
   coeducation: {type: String}
 });
 
