@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/radionoise');
+var db = mongoose.connect('mongodb://localhost/highjinro');
 mongoose.Promise = global.Promise;
 
 var UsersSchema = mongoose.Schema({
@@ -22,7 +22,7 @@ var SchoolsSchema = mongoose.Schema({
   class: {type: String},
   location_x: {type: Number},
   location_y: {type: Number},
-  coeducation: {type: String}
+  coeducation: {type: String},
   img_url: {type: String}
 });
 

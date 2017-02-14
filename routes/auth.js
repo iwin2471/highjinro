@@ -1,4 +1,4 @@
-module.exports = (router, Users, rndString,func) =>{
+module.exports = (router, Users, rndString,func, passport) =>{
   var multer = require('multer');
   var Q = require('q');
 
