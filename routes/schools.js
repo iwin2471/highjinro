@@ -13,14 +13,33 @@ module.exports = (router, Users, func, Schools, Schooltags) =>{
 
   .get('/schools/tag/:interest', (req, res)=>{
     var interest = req.params.interest.split(",");
-    Schooltags.find({$or:[{tag:interest[0]},{tag:interest[1]}]}, {_id: 0},(err, schools)=>{
-      if(err) return res.status(500).send("DB err");
-      if(schools){
-        res.send(schools);
+    Schools.find({coeducation: {$regex: interest[2]+"고|공학"}}, (err, school)=>{
+      if(err) return res.status(500).send("DB ERR");
+      if(school){
+        Schooltags.find({$or:[{tag:interest[0]},{tag:interest[1]}]}, {_id: 0},(err, schools)=>{
+          if(err) return res.status(500).send("DB err");
+          if(schools){
+            var data = [];
+            var data2 = [];
+            for(var j = 0; j<schools.length; j++){
+              for(var k = 0; k<schools[j].schools.length; k++){
+                for(var i = 0; i<school.length; i++){
+                  if(schools[j].schools[k].includes(school[i].name) && j == 0){
+                    data.push(school[j].schools[k]);
+                    break;
+                  }else if(schools[j].schools[k].includes(school[i].name) && j>0){
+                    data2.push(schools[j].schools[k])
+                    break;
+                  }
+                }
+              }
+            }
+            return res.status(200).json([{tag: schools[0].tag, schools:data}, {tag: schools[1].tag, schools:data2}]);
+          }else return res.status(404).send("not found");
+        });
       }else return res.status(404).send("not found");
     });
   })
-  
 
   .get('/schools/:name', (req, res)=>{
      Schools.findOne({name: {$regex : req.params.name}}, {_id: 0},(err, schools)=>{
