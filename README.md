@@ -153,7 +153,7 @@ KOREA UNIVERSITY hackaton
 
 > Params
 
-  interest : 디자인,항공 이런식으로 관심분야 
+  interest : 디자인,항공,남 이런식으로 
  
 > Response
 
@@ -174,7 +174,7 @@ KOREA UNIVERSITY hackaton
 
 > Params
 
-        file: if user upload image use key file
+        file: if user upload image use key file
 
         token: writer token  [String]
 
