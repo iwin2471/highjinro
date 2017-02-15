@@ -162,14 +162,14 @@ KOREA UNIVERSITY hackaton
     HTTP 404 : school not found
     
     
-* GET /board
+* GET /boards
 
 > Response
 
     HTTP 200 : return board json
 
 
-* POST /board/write
+* POST /boards/write
 
 
 > Params
@@ -191,7 +191,7 @@ KOREA UNIVERSITY hackaton
         HTTP 500 : send reason "already exists" or DB ERROR (it change 409 to 500)
 
 
-* POST /board/comment
+* POST /boards/comment
 
 > Params
 
@@ -199,10 +199,8 @@ KOREA UNIVERSITY hackaton
 
   boardid: boardid [String]
 
-  comment: board comment [String]
-
-  date: write date [String]
-
+  summary: comment summary [String]
+  
 > Response
 
     HTTP 200 : return Success
@@ -211,7 +209,7 @@ KOREA UNIVERSITY hackaton
 
     HTTP 500 : send reason "already exists" or DB ERROR
     
-* GET /board/{boardid}
+* GET /boards/{boardid}
 
 > Response
 
@@ -219,7 +217,7 @@ KOREA UNIVERSITY hackaton
 
     HTTP 400 : not vaild id
     
-* PUT /board/like
+* PUT /boards/like
 
 > Params
 
@@ -231,7 +229,7 @@ KOREA UNIVERSITY hackaton
 
     HTTP 400 : not vaild id
     
-* PUT /board/dislike
+* PUT /boards/dislike
 
 > Params
 
@@ -243,7 +241,7 @@ KOREA UNIVERSITY hackaton
 
     HTTP 400 : not vaild id
 
-* DELETE /board/destroy
+* DELETE /boards/destroy
 
 > Params
 
@@ -259,7 +257,7 @@ KOREA UNIVERSITY hackaton
 
     HTPP 500 : DB ERR
 
-* PUT /board/edit (chane post to put)
+* PUT /boards/edit (chane post to put)
 
 > Params
 
